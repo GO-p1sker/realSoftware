@@ -14,11 +14,10 @@
         <div class="top-bar">
             <div class="left-icons">
                 <a th:href="@{/main}">
-                    <img src="/images/back-icon.png" alt="뒤로가기" class="back-icon">
+                    <img src="/images/back-icon.png" alt="뒤로가기" class="back-icon" style="filter: brightness(0) saturate(100%) invert(52%) sepia(79%) saturate(477%) hue-rotate(14deg) brightness(95%) contrast(90%);">
                 </a>
             </div>
-<!--            <img src="/images/lounge-logo2.png" alt="투석라운지 로고" class="lounge-logo2">-->
-            <h1>로그인</h1>
+            <h1 style="color: #F18657;">로그인</h1> <!-- 주황색으로 변경 -->
             <div class="right-space"></div>
         </div>
         <div class="content">
@@ -30,20 +29,20 @@
                 </div>
                 <div class="login-font">
                     <div class="m-3 mt-5">
-                        <label for="username" class="form-label text-info">사용자 이름</label>
+                        <label for="username" class="form-label" style="color: #F18657;">사용자 이름</label>
                         <input type="text" name="username" id="username" class="form-control"
-                               style="background-color: #F4F4F4"
+                               style="background-color: #FFE8C6;"
                                placeholder="사용자 이름을 입력하세요.">
                     </div>
                     <div class="m-3">
-                        <label for="password" class="form-label text-info">비밀번호</label>
+                        <label for="password" class="form-label" style="color: #F18657;">비밀번호</label>
                         <input type="password" name="password" id="password" class="form-control"
-                               style="background-color: #F4F4F4"
+                               style="background-color: #FFE8C6;"
                                placeholder="비밀번호를 입력하세요.">
                     </div>
                 </div>
                 <div class="d-grid gap-2 m-3">
-                <button type="submit" class="btn btn-primary py-2 mt-2">로그인</button>
+                    <button type="submit" class="btn btn-primary py-2 mt-2" style="background-color: #F18657; border: none; color: white;">로그인</button>
                 </div>
             </form>
         </div>
@@ -51,22 +50,22 @@
 </div>
 <script th:src="@{/bootstrap.min.js}"></script>
 <script>
-    //요소가 포커스 되면 이벤트 발생
+    // 요소가 포커스 되면 이벤트 발생
     document.getElementById("username").addEventListener("focus", () => {
-        document.getElementById("username").style.backgroundColor = "#E6F7FF";
+        document.getElementById("username").style.backgroundColor = "#FDE9CF";
     });
 
     document.getElementById("password").addEventListener("focus", () => {
-        document.getElementById("password").style.backgroundColor = "#E6F7FF";
+        document.getElementById("password").style.backgroundColor = "#FDE9CF";
     });
 
     // 요소가 블러 되면 이벤트 발생
     document.getElementById("username").addEventListener("blur", () => {
-        document.getElementById("username").style.backgroundColor = "#F4F4F4";
+        document.getElementById("username").style.backgroundColor = "#FFE8C6";
     });
 
     document.getElementById("password").addEventListener("blur", () => {
-        document.getElementById("password").style.backgroundColor = "#F4F4F4";
+        document.getElementById("password").style.backgroundColor = "#FFE8C6";
     });
 </script>
 </body>
