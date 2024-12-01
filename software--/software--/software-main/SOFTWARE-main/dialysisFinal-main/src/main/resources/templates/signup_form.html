@@ -9,34 +9,76 @@
     <style>
         body {
             background: #EDF2F5; /* 배경 색상 */
+            margin: 0;
+            padding: 0;
         }
+
         .mobile-container {
+            max-width: 500px; /* 모바일 화면 폭 */
+            margin: 0 auto;
             background: #f9f9f9; /* 컨테이너 배경 색상 */
+            border-radius: 10px; /* 둥근 모서리 추가 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            overflow: hidden;
         }
+
         .top-bar {
             background-color: #F18657; /* 상단 바 배경색 */
             color: white; /* 상단 바 텍스트 색상 */
+            padding: 10px;
+            text-align: center;
         }
+
         .top-bar h1 {
             color: white; /* 회원가입 글자 색상 */
+            margin: 0;
         }
+
+        .content {
+            max-height: 90vh; /* 전체 화면 높이의 90%로 제한 */
+            overflow-y: auto; /* 필요 시 스크롤 활성화 */
+            padding: 20px; /* 내부 여백 */
+        }
+
         .form-label {
             color: #F18657; /* 라벨 색상 */
         }
+
         input.form-control {
             background-color: #FFE8C6; /* 입력 필드 배경 색상 */
         }
+
         button.btn-primary {
             background-color: #F18657; /* 버튼 색상 */
             border: none;
         }
+
         button.btn-secondary {
             background-color: #28a745; /* 주소 검색 버튼 색상 */
             color: white;
             border: none;
         }
+
         button.btn-primary:hover, button.btn-secondary:hover {
             opacity: 0.8; /* 버튼 호버 효과 */
+        }
+
+        /* 스크롤 바 스타일 */
+        .content::-webkit-scrollbar {
+            width: 8px; /* 스크롤 바 폭 */
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background-color: #F18657; /* 스크롤 바 색상 */
+            border-radius: 10px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: #f9f9f9; /* 스크롤 바 트랙 배경 */
+        }
+
+        .d-grid {
+            margin-bottom: 20px; /* 아래 여백 추가 */
         }
     </style>
 </head>
@@ -50,7 +92,6 @@
                 </a>
             </div>
             <h1>회원가입</h1>
-            <div class="right-space"></div>
         </div>
         <div class="content">
             <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
