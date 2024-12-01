@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 관리</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background: #EDF2F5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input[readonly] {
+            background-color: #f5f5f5;
+        }
+
+        .address-search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .address-search button {
+            width: 30%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .address-search button:hover {
+            background-color: #45a049;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            background-color: #F18657;
+        }
+
+        .back-btn:hover {
+            background-color: #DC7633;
+        }
+
+        p {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: green;
+        }
+
+        @media screen and (max-width: 462px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>프로필 관리</h1>
+    <form th:action="@{/profile/update}" method="post">
+        <label for="username">사용자명:</label>
+        <input type="text" id="username" name="username" th:value="${user.username}" readonly>
+
+        <label for="email">이메일:</label>
+        <input type="email" id="email" name="email" th:value="${user.email}" required>
+
+        <label for="customerPhone">전화번호:</label>
+        <input type="text" id="customerPhone" name="customerPhone" th:value="${user.customerPhone}" required>
+
+        <label for="customerAddress">주소:</label>
+        <div class="address-search">
+            <input type="text" id="customerAddress" name="customerAddress" placeholder="주소를 검색하세요" th:value="${user.customerAddress}" readonly>
+            <button type="button" onclick="execDaumPostcode()">주소 검색</button>
+        </div>
+        <input type="text" id="detailAddress" name="customerAddress" placeholder="상세 주소를 입력하세요" required>
+
+        <label for="password">새 비밀번호:</label>
+        <input type="password" id="password" name="password">
+
+        <label for="confirmPassword">비밀번호 확인:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+
+        <button type="submit">수정하기</button>
+    </form>
+
+    <form th:action="@{/main}" method="get">
+        <button type="submit" class="back-btn">메인으로 돌아가기</button>
+    </form>
+
+    <p th:text="${message}"></p>
+</div>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 주소 검색 결과를 customerAddress 필드에 반영
+                document.getElementById('customerAddress').value = data.address; // 도로명 주소
+            }
+        }).open();
+    }
+</script>
+</body>
+</html>
