@@ -29,6 +29,7 @@ public class ProfileController {
     public String updateProfile(@RequestParam String email,
                                 @RequestParam String customerPhone,
                                 @RequestParam String customerAddress,
+                                @RequestParam String detailAddress,
                                 @RequestParam(required = false) String password,
                                 @RequestParam(required = false) String confirmPassword,
                                 Model model) {
@@ -41,7 +42,7 @@ public class ProfileController {
             profileService.updatePassword(password);
         }
 
-        SiteUser updatedUser = profileService.updateUser(email, customerPhone, customerAddress);
+        SiteUser updatedUser = profileService.updateUser(email, customerPhone, customerAddress, detailAddress); // 상세 주소 추가
         model.addAttribute("user", updatedUser);
         model.addAttribute("message", "프로필이 성공적으로 수정되었습니다.");
         return "profile"; // profile.html 반환

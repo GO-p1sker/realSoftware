@@ -29,4 +29,7 @@ public class UserCreateForm {
 
         @NotEmpty(message = "주소를 입력해주세요.")
         private String customerAddress;
+
+        @NotEmpty(message = "상세 주소를 입력해주세요.") // 상세 주소 필드 추가
+        private String detailAddress;
 }

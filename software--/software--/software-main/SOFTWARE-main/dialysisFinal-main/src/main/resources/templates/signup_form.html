@@ -61,8 +61,9 @@
                                    style="background-color: #F4F4F4" placeholder="주소를 검색하세요." readonly>
                             <button type="button" class="btn btn-secondary" onclick="execDaumPostcode()">주소 검색</button>
                         </div>
-                        <input type="text" id="detailAddress" class="form-control"
-                               style="background-color: #F4F4F4" placeholder="상세 주소를 입력하세요." onblur="combineAddress()">
+                        <!-- 상세 주소 필드 -->
+                        <input type="text" th:field="*{detailAddress}" id="detailAddress" class="form-control"
+                               style="background-color: #F4F4F4" placeholder="상세 주소를 입력하세요.">
                     </div>
                 </div>
                 <div class="d-grid gap-2 m-3">
@@ -73,85 +74,15 @@
     </div>
 </div>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script th:src="@{/bootstrap.min.js}"></script>
 <script>
     // 주소 검색 API 이벤트
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function (data) {
-                // API 결과로 받은 주소를 customerAddress 필드에 설정
                 document.getElementById('customerAddress').value = data.address; // 도로명 주소
             }
         }).open();
     }
-
-    // 상세주소와 메인 주소를 결합
-    function combineAddress() {
-        const mainAddress = document.getElementById('customerAddress').value;
-        const detailAddress = document.getElementById('detailAddress').value;
-
-        if (mainAddress && detailAddress) {
-            document.getElementById('customerAddress').value = `${mainAddress} ${detailAddress}`; // 주소 결합
-        }
-    }
-
-    // 버튼 이벤트
-    document.getElementById("button").addEventListener("focus", () => {
-        document.getElementById("button").style.backgroundColor = "#00B2FF";
-        document.getElementById("button").innerText = "환영합니다!";
-    });
-    document.getElementById("button").addEventListener("blur", () => {
-        document.getElementById("button").style.backgroundColor = "#00B2FF";
-        document.getElementById("button").innerText = "회원가입";
-    });
-
-    // username 이벤트
-    document.getElementById("username").addEventListener("focus", () => {
-        document.getElementById("username").style.backgroundColor = "#E6F7FF";
-    });
-    document.getElementById("username").addEventListener("blur", () => {
-        document.getElementById("username").style.backgroundColor = "#F4F4F4";
-    });
-
-    // password1 이벤트
-    document.getElementById("password1").addEventListener("focus", () => {
-        document.getElementById("password1").style.backgroundColor = "#E6F7FF";
-    });
-    document.getElementById("password1").addEventListener("blur", () => {
-        document.getElementById("password1").style.backgroundColor = "#F4F4F4";
-    });
-
-    // password2 이벤트
-    document.getElementById("password2").addEventListener("focus", () => {
-        document.getElementById("password2").style.backgroundColor = "#E6F7FF";
-    });
-    document.getElementById("password2").addEventListener("blur", () => {
-        document.getElementById("password2").style.backgroundColor = "#F4F4F4";
-    });
-
-    // email 이벤트
-    document.getElementById("email").addEventListener("focus", () => {
-        document.getElementById("email").style.backgroundColor = "#E6F7FF";
-    });
-    document.getElementById("email").addEventListener("blur", () => {
-        document.getElementById("email").style.backgroundColor = "#F4F4F4";
-    });
-
-    // customerPhone 이벤트
-    document.getElementById("customerPhone").addEventListener("focus", () => {
-        document.getElementById("customerPhone").style.backgroundColor = "#E6F7FF";
-    });
-    document.getElementById("customerPhone").addEventListener("blur", () => {
-        document.getElementById("customerPhone").style.backgroundColor = "#F4F4F4";
-    });
-
-    // customerAddress 이벤트
-    document.getElementById("customerAddress").addEventListener("focus", () => {
-        document.getElementById("customerAddress").style.backgroundColor = "#E6F7FF";
-    });
-    document.getElementById("customerAddress").addEventListener("blur", () => {
-        document.getElementById("customerAddress").style.backgroundColor = "#F4F4F4";
-    });
 </script>
 </body>
 </html>

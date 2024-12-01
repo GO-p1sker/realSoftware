@@ -44,7 +44,8 @@ public class UserController {
                     userCreateForm.getEmail(),
                     userCreateForm.getPassword1(),
                     userCreateForm.getCustomerPhone(),
-                    userCreateForm.getCustomerAddress()
+                    userCreateForm.getCustomerAddress(),
+                    userCreateForm.getDetailAddress() // 상세 주소 추가
             );
         } catch (DataIntegrityViolationException e) { // 중복 데이터 처리
             e.printStackTrace();

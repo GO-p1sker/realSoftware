@@ -25,11 +25,12 @@ public class ProfileService {
     }
 
     // 프로필 정보 업데이트
-    public SiteUser updateUser(String email, String customerPhone, String customerAddress) {
+    public SiteUser updateUser(String email, String customerPhone, String customerAddress, String detailAddress) {
         SiteUser currentUser = getCurrentUser();
         currentUser.setEmail(email);
         currentUser.setCustomerPhone(customerPhone);
         currentUser.setCustomerAddress(customerAddress);
+        currentUser.setDetailAddress(detailAddress); // 상세 주소 추가
         return userRepository.save(currentUser);
     }
 
