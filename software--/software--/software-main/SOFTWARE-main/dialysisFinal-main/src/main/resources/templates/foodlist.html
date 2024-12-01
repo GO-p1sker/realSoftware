@@ -5,6 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>재료 구매</title>
     <link rel="stylesheet" href="/food.css">
+    <style>
+        /* 반응형 디자인 추가 */
+        @media (max-width: 768px) {
+            .food-images {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .foodlist {
+                width: calc(50% - 10px); /* 태블릿: 한 줄에 두 개 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .foodlist {
+                width: 100%; /* 모바일: 한 줄에 하나 */
+            }
+        }
+
+        /* 공통 스타일 */
+        .foodlist {
+            position: relative;
+            text-align: center;
+            width: 160px; /* 이미지 컨테이너 폭 */
+            height: auto; /* 높이를 콘텐츠에 맞게 */
+            overflow: hidden;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            margin: 10px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 이미지 스타일 */
+        .foodlist-img {
+            width: 100%;
+            height: 160px; /* 고정된 이미지 높이 */
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            cursor: pointer; /* 클릭 가능한 커서 표시 */
+        }
+
+        /* 이미지 로드 중 텍스트 스타일 */
+        .foodlist-img-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 160px; /* 고정된 높이 */
+            font-size: 14px; /* 텍스트 크기 */
+            font-weight: bold;
+            background-color: #f2f2f2;
+            color: #666;
+        }
+
+        /* hover 효과 - 이미지 및 텍스트에 공통 적용 */
+        .foodlist:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .foodlist:hover .foodlist-img {
+            transform: scale(1.1);
+        }
+
+        .foodlist:hover .foodlist-img-text {
+            background-color: #e0e0e0;
+            color: #007bff;
+        }
+
+        /* 텍스트 및 가격 스타일 */
+        .food-text-container {
+            padding: 10px; /* 텍스트와 컨테이너의 간격 */
+        }
+
+        .food-text1 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; /* 글자가 길 경우 생략 표시 */
+        }
+
+        .food-text2 {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 모달 스타일 */
+        #imageModal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* 반투명 검은 배경 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* 다른 요소보다 위에 위치 */
+        }
+
+        #imageModal img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 2px solid #fff; /* 흰색 테두리 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #imageModal button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="background">
@@ -23,7 +146,6 @@
                 <h2 class="diet-title">신선 코너</h2>
                 <div class="food-images">
                     <div class="foodlist" th:each="product : ${products}">
-                        <!-- 이미지가 있는 경우 이미지를 표시, 없으면 텍스트를 표시 -->
                         <img th:src="@{${product.imageUrl}}"
                              th:alt="'이미지 로드중'"
                              class="foodlist-img"
@@ -31,11 +153,12 @@
                         <span th:text="'이미지 로드중'"
                               th:unless="${product.imageUrl != null and product.imageUrl != ''}"
                               class="foodlist-img-text"></span>
-                        <a th:href="@{/product/{id}(id=${product.id})}">
-                            <p class="food-text1" th:text="${product.name}"></p>
-                        </a>
-                        <!-- 상품 가격 -->
-                        <p class="food-text2" th:text="${product.price}+ '원'"></p>
+                        <div class="food-text-container">
+                            <a th:href="@{/product/{id}(id=${product.id})}">
+                                <p class="food-text1" th:text="${product.name}"></p>
+                            </a>
+                            <p class="food-text2" th:text="${product.price} + '원'"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,5 +167,35 @@
             </button>
         </div>
     </div>
+</div>
+
+<!-- 모달 -->
+<div id="imageModal">
+    <img id="modalImage" alt="확대된 이미지">
+    <button onclick="hideModal()">&times;</button>
+</div>
+
+<script>
+    // 모달 열기
+    function showModal(imageSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageSrc;
+        modal.style.display = 'flex';
+    }
+
+    // 모달 닫기
+    function hideModal() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+    }
+
+    // 클릭 이벤트 추가
+    document.querySelectorAll('.foodlist-img').forEach(img => {
+        img.addEventListener('click', function() {
+            showModal(this.src);
+        });
+    });
+</script>
 </body>
 </html>

@@ -14,11 +14,13 @@
             const logoutSection = document.getElementById('logout-section');
             const adminSection = document.getElementById('admin-section');
             const myPageButton = document.getElementById('myPage-section');
+            const orderHistoryButton = document.getElementById('orderHistory-section'); // 주문 내역 버튼
 
             if (isAuthenticated) {
                 loginSection.style.display = 'none';
                 logoutSection.style.display = 'block';
                 myPageButton.style.display = 'block'; // 마이페이지 버튼 표시
+                orderHistoryButton.style.display = 'block'; // 주문 내역 버튼 표시
 
                 if (isAdmin) {
                     adminSection.style.display = 'block';
@@ -30,6 +32,7 @@
                 logoutSection.style.display = 'none';
                 adminSection.style.display = 'none';
                 myPageButton.style.display = 'none'; // 마이페이지 버튼 숨김
+                orderHistoryButton.style.display = 'none'; // 주문 내역 버튼 숨김
             }
         }
 
@@ -38,7 +41,7 @@
     <style>
         .iframe-container {
             width: 100%;
-            height: 400px;
+            height: 500px; /* 아이프레임 높이를 500px로 키움 */
             border: 2px solid #ccc;
             border-radius: 10px;
             overflow: hidden;
@@ -51,17 +54,103 @@
             height: 100%;
             border: none;
         }
+
+        .service-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* 버튼 정렬 */
+        }
+
+        .service-card {
+            margin: 10px; /* 버튼 간격 */
+            transition: transform 0.2s, box-shadow 0.2s; /* 애니메이션 효과 추가 */
+        }
+
+        .service-card:hover {
+            transform: scale(1.05); /* 버튼 크기 확대 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+        }
+
+        /* 건강 레시피 버튼에 반응 효과 추가 */
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background-color: #f9f9f9; /* 기본 배경색 유지 */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
+            font-size: 16px;
+            color: #333; /* 기본 텍스트 색상 */
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+        }
+
+        .banner img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease; /* 이미지 확대 애니메이션 */
+        }
+
+        /* Hover 효과 */
+        .banner:hover {
+            transform: scale(1.05); /* 버튼 확대 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 그림자 강조 */
+        }
+
+        .banner:hover img {
+            transform: scale(1.2); /* 이미지 확대 */
+        }
+
+        /* 맞춤형 식단 추천 AI 버튼 */
+        .find-center-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background-color: #FFA500; /* 주황색 */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
+            font-size: 16px;
+            color: #fff; /* 텍스트 흰색 */
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+        }
+
+        .find-center-btn img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease; /* 이미지 확대 애니메이션 */
+        }
+
+        /* Hover 효과 */
+        .find-center-btn:hover {
+            transform: scale(1.05); /* 버튼 확대 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 그림자 강조 */
+        }
+
+        .find-center-btn:hover img {
+            transform: scale(1.2); /* 이미지 확대 */
+        }
     </style>
 </head>
 <body>
 <div class="background">
     <div class="mobile-container">
         <div class="main-banner">
+            <!-- 건강 레시피 버튼 -->
             <button class="banner" onclick="location.href='/products'">
                 <img src="/images/dietedu-icon.png" alt="교육자료 아이콘" class="dietedu-icon">
                 <span class="banner-text">건강 레시피에 필요한 신선한 재료 구매 바로가기!</span>
             </button>
-            <button class="find-center-btn " onclick="window.location.href='/go-to-url'">
+            <!-- 맞춤형 식단 추천 AI 버튼 -->
+            <button class="find-center-btn" onclick="window.location.href='/go-to-url'">
                 <img src="/images/AI.png" class="search-icon">맞춤형 식단 추천 AI
             </button>
         </div>
@@ -92,7 +181,7 @@
                     <div class="service-card-content">
                         <h3>로그아웃</h3>
                     </div>
-                    <img src="/images/login.png">
+                    <img src="/images/로그아웃.png">
                 </button>
             </div>
 
@@ -102,7 +191,17 @@
                     <div class="service-card-content">
                         <h3>마이페이지</h3>
                     </div>
-                    <img src="/images/myprofile.png">
+                    <img src="/images/마이페이지.png">
+                </button>
+            </div>
+
+            <!-- Section for Order History -->
+            <div id="orderHistory-section" style="display: none;">
+                <button class="service-card orderhistory-btn" onclick="location.href='/order/history'">
+                    <div class="service-card-content">
+                        <h3>주문 내역</h3>
+                    </div>
+                    <img src="/images/주문내역.png">
                 </button>
             </div>
 
@@ -114,19 +213,19 @@
                         <div class="service-card-content">
                             <h3>상품 관리</h3>
                         </div>
-                        <img src="/images/login.png">
+                        <img src="/images/관리.png">
                     </button>
                     <button class="service-card admin-orders-btn" onclick="location.href='/admin/orders'">
                         <div class="service-card-content">
                             <h3>주문 관리</h3>
                         </div>
-                        <img src="/images/login.png">
+                        <img src="/images/관리.png">
                     </button>
                     <button class="service-card admin-users-btn" onclick="location.href='/admin/users'">
                         <div class="service-card-content">
                             <h3>사용자 관리</h3>
                         </div>
-                        <img src="/images/login.png">
+                        <img src="/images/관리.png">
                     </button>
                 </div>
             </div>

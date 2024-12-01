@@ -5,6 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문서</title>
     <link rel="stylesheet" href="/food.css">
+    <style>
+        /* 버튼 hover 반응 추가 */
+        .banner2:hover {
+            background-color: #0056b3; /* hover 시 배경색 변경 */
+            color: #fff; /* 텍스트 색상 */
+            transform: scale(1.05); /* hover 시 크기 확대 */
+            transition: all 0.3s ease; /* 부드러운 애니메이션 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+        }
+
+        .banner-text2:hover {
+            text-decoration: underline; /* hover 시 텍스트 밑줄 */
+        }
+
+        /* 결제수단을 가로로 나란히 정렬 */
+        .ingredient-boxes {
+            display: flex;
+            gap: 15px; /* 각 요소 간 간격 */
+        }
+
+        .ingredient-boxes label {
+            display: inline-block;
+            padding: 10px 15px;
+            border: 1px solid #ddd; /* 기본 테두리 */
+            border-radius: 5px;
+            cursor: pointer; /* 클릭 가능한 커서 표시 */
+            transition: all 0.3s ease; /* 부드러운 애니메이션 */
+        }
+
+        .ingredient-boxes label:hover {
+            background-color: #f0f0f0; /* hover 시 배경색 변경 */
+            border-color: #007bff; /* hover 시 테두리 색상 변경 */
+            transform: scale(1.05); /* hover 시 크기 확대 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 추가 */
+        }
+
+        /* 선택된 상태 스타일 */
+        .ingredient-boxes input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .ingredient-boxes input[type="radio"] {
+            display: none; /* 라디오 버튼 숨김 */
+        }
+    </style>
 </head>
 <body>
 <div class="background">
@@ -37,15 +84,14 @@
                     <!-- 결제 수단 -->
                     <p class="food-order-text1">결제수단</p>
                     <div class="ingredient-boxes">
-                        <label>
-                            <input type="radio" name="paymentMethod" value="CREDIT_CARD" required> 신용카드
-                        </label>
-                        <label>
-                            <input type="radio" name="paymentMethod" value="EASY_PAYMENT"> 간편 결제
-                        </label>
-                        <label>
-                            <input type="radio" name="paymentMethod" value="MOBILE_PAYMENT"> 휴대폰 결제
-                        </label>
+                        <input type="radio" name="paymentMethod" id="credit_card" value="CREDIT_CARD" required>
+                        <label for="credit_card">신용카드</label>
+
+                        <input type="radio" name="paymentMethod" id="easy_payment" value="EASY_PAYMENT">
+                        <label for="easy_payment">간편 결제</label>
+
+                        <input type="radio" name="paymentMethod" id="mobile_payment" value="MOBILE_PAYMENT">
+                        <label for="mobile_payment">휴대폰 결제</label>
                     </div><br>
 
                     <!-- 결제 금액 -->

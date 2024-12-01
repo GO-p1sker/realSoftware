@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class OrderController {
     private final ProductRepository productRepository;
     private final OrderService orderService;
     private final UserService userService;
+    private final OrderRepository orderRepository;
 
     // 주문 생성 페이지
     @GetMapping("/order/create")
@@ -72,6 +74,22 @@ public class OrderController {
         // 상품 목록을 데이터베이스에서 가져옵니다.
         model.addAttribute("products", productRepository.findAll());
         return "foodlist.html"; // `ingredients.html`로 이동
+    }
+
+    // 사용자 주문 내역 조회
+    @GetMapping("/order/history")
+    public String viewOrderHistory(Model model) {
+        // 현재 로그인된 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        SiteUser user = userService.getUser(username);
+
+        // 사용자의 주문 내역 가져오기
+        List<Order> orders = orderRepository.findByUser(user);
+
+        // 모델에 데이터 추가
+        model.addAttribute("orders", orders);
+        return "order-history.html"; // 주문 내역 페이지
     }
 
 }

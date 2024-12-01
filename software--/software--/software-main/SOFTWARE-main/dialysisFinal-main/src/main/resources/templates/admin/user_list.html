@@ -72,6 +72,12 @@
             border-radius: 10px;
             cursor: pointer;
             text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button.banner:hover {
+            background-color: #FFD399;
+            transform: scale(1.05); /* hover 시 크기 확대 */
         }
 
         table {
@@ -100,12 +106,18 @@
             background-color: #f9f9f9;
         }
 
+        table tr:hover {
+            background-color: #FFD8C2; /* hover 시 배경색 변경 */
+            transition: background-color 0.3s ease; /* 부드러운 효과 */
+        }
+
         .btn {
             font-size: 0.9rem;
             padding: 5px 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* 호버 애니메이션 */
         }
 
         .delete-btn {
@@ -113,9 +125,19 @@
             color: #fff;
         }
 
+        .delete-btn:hover {
+            background-color: #b52a37;
+            transform: scale(1.05); /* hover 시 크기 확대 */
+        }
+
         .update-btn {
             background-color: #28a745;
             color: #fff;
+        }
+
+        .update-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05); /* hover 시 크기 확대 */
         }
 
         .role-dropdown {
@@ -131,33 +153,6 @@
             }
         }
     </style>
-    <script>
-        async function checkAuthStatus() {
-            const response = await fetch('/auth/status');
-            const { isAuthenticated, isAdmin } = await response.json();
-
-            const loginSection = document.getElementById('login-section');
-            const logoutSection = document.getElementById('logout-section');
-            const adminSection = document.getElementById('admin-section');
-
-            if (isAuthenticated) {
-                loginSection.style.display = 'none';
-                logoutSection.style.display = 'block';
-
-                if (isAdmin) {
-                    adminSection.style.display = 'block';
-                } else {
-                    adminSection.style.display = 'none';
-                }
-            } else {
-                loginSection.style.display = 'block';
-                logoutSection.style.display = 'none';
-                adminSection.style.display = 'none';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', checkAuthStatus);
-    </script>
 </head>
 <body>
 <div class="background">

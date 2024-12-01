@@ -74,10 +74,12 @@
       font-weight: bold;
       text-align: center;
       cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease; /* 호버 효과 */
     }
 
     .back-to-main:hover {
       background-color: #FFD399;
+      transform: scale(1.05); /* 호버 시 확대 */
     }
 
     table {
@@ -107,7 +109,8 @@
     }
 
     table tr:hover {
-      background-color: #f1f1f1;
+      background-color: #FFD8C2; /* 테이블 행 hover 효과 */
+      transition: background-color 0.3s ease; /* 부드러운 hover 효과 */
     }
 
     .btn {
@@ -118,8 +121,11 @@
       cursor: pointer;
       display: inline-block;
       text-align: center;
-      width: 80px;
+      width: 100%; /* 버튼이 영역 안에 꽉 차도록 */
+      max-width: 80px; /* 최대 너비 설정 */
       text-decoration: none;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, transform 0.3s ease; /* 부드러운 hover 효과 */
     }
 
     .delete-btn {
@@ -129,17 +135,22 @@
 
     .delete-btn:hover {
       background-color: #b52a37;
+      transform: scale(1.05); /* 버튼 hover 시 확대 */
     }
 
     .action-buttons {
       display: flex;
-      justify-content: flex-start;
-      gap: 10px;
+      justify-content: center; /* 버튼을 가운데 정렬 */
+      align-items: center;
+      width: 100%;
     }
 
     @media screen and (max-width: 462px) {
       .mobile-container {
         width: 100%;
+      }
+      .btn {
+        font-size: 0.8rem; /* 작은 화면에서는 버튼 글씨 크기 축소 */
       }
     }
   </style>

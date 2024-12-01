@@ -78,6 +78,12 @@
             font-size: 14px;
             background-color: #FFE8C6; /* Matches the button color */
             color: #333; /* Ensures text is readable */
+            transition: border-color 0.3s ease, transform 0.3s ease; /* 부드러운 호버 효과 */
+        }
+
+        input:hover, textarea:hover {
+            border-color: #F18657;
+            transform: scale(1.02); /* 호버 시 살짝 확대 */
         }
 
         input:focus, textarea:focus {
@@ -108,10 +114,12 @@
             text-align: center;
             text-decoration: none;
             line-height: 45px;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* 부드러운 호버 효과 */
         }
 
         button:hover, a:hover {
             background-color: #45a049;
+            transform: scale(1.05); /* 호버 시 살짝 확대 */
         }
 
         .cancel-btn {
@@ -120,6 +128,7 @@
 
         .cancel-btn:hover {
             background-color: #b52a37;
+            transform: scale(1.05); /* 호버 시 살짝 확대 */
         }
 
         @media screen and (max-width: 462px) {
