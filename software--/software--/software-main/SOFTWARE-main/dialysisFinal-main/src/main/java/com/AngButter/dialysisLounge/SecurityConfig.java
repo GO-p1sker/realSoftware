@@ -22,7 +22,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers("/static/**", "/**.css", "/**.js", "/**.png", "/images/**", "/**.jpeg").permitAll()
-                        .requestMatchers("/user/login", "/user/logout", "/main", "/user/signup").permitAll()
+                        .requestMatchers("/user/login", "/user/logout", "/main", "/user/signup", "/").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자 페이지 접근 제한
                         .anyRequest().authenticated())
                 .csrf((csrf) -> csrf.disable())
